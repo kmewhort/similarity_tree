@@ -29,9 +29,9 @@ module SimilarityTree
       result[:children] = children.map {|c| c.to_h} unless children.nil? || children.empty?
       result[:diff_score] = diff_score unless diff_score.nil?
 
-      # if the content node has an as_json function, merge-in these attributes
-      if content.respond_to?(:as_json) && content.is_a?(Hash)
-        result = content.as_json.merge(result)
+      # if the content node has an as_json function, insert these attributes
+      if content.respond_to?(:as_json) && content.as_json.is_a?(Hash)
+        result[:content] = content.as_json.merge(result)
       end
       result
     end
