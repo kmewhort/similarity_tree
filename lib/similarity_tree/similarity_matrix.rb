@@ -1,6 +1,7 @@
-require 'matrix'
+require 'gsl'
 require 'tf-idf-similarity'
 require 'fast_html_diff'
+require 'ruby-progressbar'
 
 module SimilarityTree
   # Table of the diff/similarity scores between different text documents
@@ -62,7 +63,7 @@ module SimilarityTree
         progress_bar.increment unless progress_bar.nil?
         id_of(source)
       end
-      model = TfIdfSimilarity::TfIdfModel.new(corpus, function: :tf_idf)
+      model = TfIdfSimilarity::TfIdfModel.new(corpus, function: :tf_idf, library: :gsl)
       similarity_matrix = model.similarity_matrix
 
       # compile the results into an ordinary m*n array
